@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MiIkea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 bg-dark">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="nav-link text-white fs-3" >MiIkea</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul sec:authorize="isAuthenticated()" class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a href="/producto" class="nav-link text-white fs-5 mx-3">Muebles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href = "@{/pedidos}"class="nav-link text-white fs-5 mx-3">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href = "@{/carrito}"class="nav-link text-white fs-5 mx-3">Carrito</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                        <a th:href = "@{/usuarios}"class="nav-link text-white fs-5 mx-3">Usuarios</a>
+                    </li>
+                </ul>
+                <ul sec:authorize="!isAuthenticated()" class="navbar-nav ms-auto">
+                    <li class="mx-3"><a th:href="@{/login}" class="btn btn-outline-primary">Inicia sesión</a></li>
+                    <li class="mx-3"><a th:href="@{/register}" class="btn btn-outline-success">Registrate</a></li>
+                </ul>
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                    <span sec:authentication="name" class="text-white mx-3"></span>
+                    <input class="btn btn-outline-warning" type="submit" value="Cerrar sesi&oacute;n">
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container">
+    <h3 class="m-3">Bienvenido a tu tienda de confianza</h3>
+</main>
+</body>
+</html>

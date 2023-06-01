@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MiIkea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<header th:replace="/Home/index :: header"></header>
+<main class="container">
+    <h2>Detalles del producto</h2>
+    <div th:if="${producto} != null">
+        <h4 th:text="${producto.product_name}"></h4>
+        <hr />
+        <ul>
+            <li th:text="${'Id: ' + producto.product_id}" class = "col-sm-2"></li>
+            <li th:text="${'Precio: ' + producto.product_price + ' €'}" class = "col-sm-2"></li>
+            <li th:text="${'Stock: ' + producto.product_stock + ' (unidades)'}" class = "col-sm-2"></li>
+            <li th:text="${'Municipio: ' + producto.municipio.nombre}"></li>
+            <li th:text="${'Provincia: ' + producto.municipio.provincia.nombre}"></li>
+            <li>Imagen</li>
+        </ul>
+        <div class="container">
+           <img onerror="this.onerror=null;this.src='Images/default.png';"
+                th:src="'http://localhost:8080/Images/' + ${producto.product_picture}" width="250px" height="150px"/>
+        </div>
+    </div>
+    <div th:unless="${producto} != null">
+        <p class="text-danger fs-3">No se encuentra ning&uacute;n pedido con ese id</p>
+    </div>
+    <br/>
+    <div>
+        <a th:href="@{/producto}"><input type="button" class="btn btn-primary" value="Volver a la lista"/></a>
+    </div>
+</main>
+</body>
+</html>
